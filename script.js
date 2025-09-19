@@ -33,17 +33,14 @@ function resetGame() {
 function checkGuess() {
   const guess = parseInt(guessInput.value);
 
-  // Nếu người chơi không nhập hoặc nhập ngoài phạm vi
   if (isNaN(guess) || guess < 1 || guess > 50) {
     message.textContent = "Please enter a valid number between 1 and 50!";
     return;
   }
 
-  // Tăng số lần thử
   attempts++;
   attemptsDisplay.textContent = `${attempts} / ${maxAttempts}`;
 
-  // So sánh số đoán với số ngẫu nhiên
   if (guess === randomNumber) {
     message.textContent = `🎉 Correct! The number was ${randomNumber}.`;
     message.style.color = "green";
@@ -51,8 +48,6 @@ function checkGuess() {
     checkButton.disabled = true;
     wins++;
     updateScore();
-
-    // Tự động reset sau 2 giây
     setTimeout(resetGame, 2000);
   } else if (guess < randomNumber) {
     message.textContent = "Too low! Try again.";
@@ -62,7 +57,6 @@ function checkGuess() {
     message.style.color = "orange";
   }
 
-  // Kiểm tra nếu đã hết lượt đoán
   if (attempts >= maxAttempts && guess !== randomNumber) {
     message.textContent = `😢 Out of attempts! The number was ${randomNumber}.`;
     message.style.color = "red";
@@ -70,26 +64,20 @@ function checkGuess() {
     checkButton.disabled = true;
     losses++;
     updateScore();
-
-    // Tự động reset sau 2 giây
     setTimeout(resetGame, 2000);
   }
 }
 
-// Gắn sự kiện cho nút kiểm tra
 checkButton.addEventListener("click", checkGuess);
 
-// Thêm sự kiện khi nhấn phím Enter
 guessInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     checkGuess();
   }
 });
 
-// Nút khởi động lại game thủ công
 restartButton.addEventListener("click", resetGame);
 
-// Cập nhật điểm số
 function updateScore() {
   scoreDisplay.innerHTML = `<strong>Wins:</strong> ${wins} | <strong>Losses:</strong> ${losses}`;
 }
