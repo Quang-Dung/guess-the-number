@@ -65,7 +65,6 @@ button:hover {
   font-size: 16px;
   margin-top: 15px;
   min-height: 24px;
-  /* giữ khoảng trống để UI không bị giật */
 }
 
 #attempts {
